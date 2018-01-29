@@ -1,15 +1,21 @@
 class CirclesController < ApplicationController
   before_action :set_circle, only: [:show, :update, :destroy]
+  before_action :set_user
+
+  def index
+    @circle = Circle.all
+    json_response(@circle)
+  end
 
   def show
-    @circle = Circle.all
     json_response(@circle)
   end
 
   # POST /circles
   def create
-    @circle = @circle.create!(circle_params)
-    json_response(@todo, :created)
+    puts circle_params
+    @circle = @user.circles.create!(circle_params)
+    json_response(@circle, :created)
   end
 
   def update
@@ -27,11 +33,15 @@ class CirclesController < ApplicationController
 
   def circle_params
     # whitelist params
-    params.permit(:name, :user)
+    params.permit(:name)
   end
 
   def set_circle
-    @circle = circle.find(params[:id])
+    @circle = Circle.find(params[:id])
+  end
+
+  def set_user
+    @user = User.find(params[:user_id])
   end
 
 

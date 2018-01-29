@@ -10,15 +10,67 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180128225645) do
+ActiveRecord::Schema.define(version: 20180129051056) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "address", force: :cascade do |t|
+    t.bigint "contact_id"
+    t.bigint "type_id"
+    t.string "apt"
+    t.string "address"
+    t.string "city"
+    t.string "postal"
+    t.string "state"
+    t.string "country"
+    t.string "lat"
+    t.string "lon"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contact_id"], name: "index_address_on_contact_id"
+    t.index ["type_id"], name: "index_address_on_type_id"
+  end
+
   create_table "circles", force: :cascade do |t|
+    t.bigint "users_id"
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["users_id"], name: "index_circles_on_users_id"
+  end
+
+  create_table "contact_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_contacts_on_user_id"
+  end
+
+  create_table "emails", force: :cascade do |t|
+    t.string "email"
+    t.bigint "contact_id"
+    t.bigint "type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contact_id"], name: "index_emails_on_contact_id"
+    t.index ["type_id"], name: "index_emails_on_type_id"
+  end
+
+  create_table "phones", force: :cascade do |t|
+    t.string "number"
+    t.bigint "contact_id"
+    t.bigint "type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contact_id"], name: "index_phones_on_contact_id"
+    t.index ["type_id"], name: "index_phones_on_type_id"
   end
 
   create_table "user_circles", force: :cascade do |t|
@@ -34,8 +86,10 @@ ActiveRecord::Schema.define(version: 20180128225645) do
     t.string "first_name"
     t.string "last_name"
     t.string "email"
+    t.bigint "circles_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["circles_id"], name: "index_users_on_circles_id"
   end
 
   add_foreign_key "user_circles", "circles"

@@ -1,6 +1,7 @@
 class CreateCircles < ActiveRecord::Migration[5.1]
   def change
     create_table :circles do |t|
+      t.references :users
       t.string :name
       t.timestamps
     end

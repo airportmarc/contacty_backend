@@ -21,17 +21,28 @@ class UsersController < ApplicationController
   end
 
   def create
-    puts params
-    # @users = User.create!(user_params)
-    # ContactInfo.create({user: @users})
-    # json_response(@users, :created)
+    @users = User.create!(user_params)
+    @contact = Contact.create({user: @users, address: params['user']['address']})
+    if params['user']['phone'].length > 0
+      @contact.phones.create(number:params['user']['phone'])
+    end
+    if params['user']['email'].length > 0
+      @contact.emails.create(email:params['user']['email'])
+    end
+
+    json_response(@users, :created)
   end
 
 
   private
 
   def user_params
-    params.permit(:first_name, :last_name, :email)
+    params['user'].permit(:first_name, :last_name, :email)
+  end
+
+  def other_params
+    params['user'].permit(:phone, :email)
+
   end
 
   def set_user

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user,  only: [:show, :update, :destroy]
 
-  def get
+  def index
     @users = User.all
     json_response(@users)
   end
@@ -21,9 +21,10 @@ class UsersController < ApplicationController
   end
 
   def create
-    @users = User.create!(user_params)
-    ContactInfo.create({user: @users})
-    json_response(@users, :created)
+    puts params
+    # @users = User.create!(user_params)
+    # ContactInfo.create({user: @users})
+    # json_response(@users, :created)
   end
 
 

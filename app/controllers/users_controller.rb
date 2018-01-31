@@ -3,10 +3,8 @@ class UsersController < ApplicationController
 
   def index
 
-    #@users = User.includes(:contact, contact: [:emails, :phones]).take(15)
     @users = User.take(10)
     render json: @users.to_json( {include: [:contact, contact: { include: [:emails, :phones]}]})
-    #json_detailed_response(@users)
   end
 
   def show

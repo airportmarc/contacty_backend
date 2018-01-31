@@ -6,11 +6,11 @@ class UsersController < ApplicationController
     #@users = User.includes(:contact, contact: [:emails, :phones]).take(15)
     @users = User.take(10)
     render json: @users.to_json( {include: [:contact, contact: { include: [:emails, :phones]}]})
-    #json_response(@users)
+    #json_detailed_response(@users)
   end
 
   def show
-    json_response(@user)
+    json_detailed_response(@user)
   end
 
   def update
@@ -49,6 +49,6 @@ class UsersController < ApplicationController
   end
 
   def set_user
-    @user = user.find(params[:id])
+    @user = User.find(params[:id])
   end
 end

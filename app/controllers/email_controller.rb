@@ -1,13 +1,13 @@
 class EmailController < ApplicationController
   before_action :set_user, only: [:create]
-  before_action :set_email
+  before_action :set_email, only: [:destroy]
 
   def create
     p = email_params
     @email = Email.create!(p)
-    @user.contact_info.emails << @email
+    @user.contact.emails << @email
     @user.save()
-    json_response(@user)
+    json_response(@email)
   end
 
   def destroy

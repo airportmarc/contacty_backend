@@ -1,18 +1,17 @@
-class PhoneController < ApplicationController
+class EmailController < ApplicationController
   before_action :set_user, only: [:create]
-  before_action :set_phone
+  before_action :set_email
 
   def create
-    p = phone_params
-    @phone = Phone.create!(p)
-    puts @phone.number
-    @user.contact_info.phones << @phone
+    p = email_params
+    @email = Email.create!(p)
+    @user.contact_info.emails << @email
     @user.save()
     json_response(@user)
   end
 
   def destroy
-    @phone.destroy
+    @email.destroy
     head :no_content
 
   end
@@ -21,15 +20,15 @@ class PhoneController < ApplicationController
 
   private
 
-  def phone_params
-    params.permit(:number, :type)
+  def email_params
+    params.permit(:email, :type)
   end
 
   def set_user
     @user = User.find(params[:user_id])
   end
 
-  def set_phone
-    @phone = Phone.find(params['id'])
+  def set_email
+    @email = Email.find(params['id'])
   end
 end

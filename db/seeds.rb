@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 #
 
-json = ActiveSupport::JSON.decode(File.read('C:\Sites\contact_backend\db\iniital_users.json'))
+json = ActiveSupport::JSON.decode(File.read(File.join(File.dirname(__FILE__), 'initial_users.json')))
 
 json.each do |a|
   u = User.create!({first_name: a['first_name'], last_name: a['last_name'], email: a['email'], bio: a['bio'],

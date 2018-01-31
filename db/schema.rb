@@ -15,23 +15,6 @@ ActiveRecord::Schema.define(version: 20180131142937) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "address", force: :cascade do |t|
-    t.bigint "contact_id"
-    t.bigint "type_id"
-    t.string "apt"
-    t.string "address"
-    t.string "city"
-    t.string "postal"
-    t.string "state"
-    t.string "country"
-    t.string "lat"
-    t.string "lon"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["contact_id"], name: "index_address_on_contact_id"
-    t.index ["type_id"], name: "index_address_on_type_id"
-  end
-
   create_table "circles", force: :cascade do |t|
     t.bigint "users_id"
     t.string "name"

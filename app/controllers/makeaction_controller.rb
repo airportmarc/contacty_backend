@@ -11,7 +11,7 @@ class MakeactionController < ApplicationController
     #  set up a client to talk to the Twilio REST API
     @client = Twilio::REST::Client.new ENV['account_sid'], ENV['auth_token']
     @client.api.account.messages.create(
-      from: '+6477979487',
+      from: '+16477979487',
       to: to,
       body: message
     )

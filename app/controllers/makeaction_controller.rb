@@ -5,14 +5,17 @@ class MakeactionController < ApplicationController
 
   def act
     puts params
+    to = params['sendTo']
+    message = params['message']
+
 
 
 # set up a client to talk to the Twilio REST API
 #     @client = Twilio::REST::Client.new account_sid, auth_token
 #     @client.api.account.messages.create(
 #         from: '+6477979487',
-#         to: '+16475466128',
-#         body: 'Hey there!'
+#         to: to,
+#         body: message
 #     )
   end
 

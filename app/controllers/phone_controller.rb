@@ -1,11 +1,10 @@
 class PhoneController < ApplicationController
   before_action :set_user, only: [:create]
-  before_action :set_phone, only: [:destroy]
+  before_action :set_phone, only: [:destroy, :update]
 
   def create
     p = phone_params
     @phone = Phone.create!(p)
-    puts @phone.number
     @user.contact.phones << @phone
     @user.save()
     json_response(@phone)
@@ -18,6 +17,8 @@ class PhoneController < ApplicationController
   end
 
   def update
+    @phone.update(phone_params)
+    json_response(@phone)
 
   end
 

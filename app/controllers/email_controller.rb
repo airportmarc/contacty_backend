@@ -1,6 +1,6 @@
 class EmailController < ApplicationController
   before_action :set_user, only: [:create]
-  before_action :set_email, only: [:destroy]
+  before_action :set_email, only: [:destroy, :update]
 
   def create
     p = email_params
@@ -13,6 +13,12 @@ class EmailController < ApplicationController
   def destroy
     @email.destroy
     head :no_content
+
+  end
+
+  def update
+    @email.update(email_params)
+    json_response(@email)
 
   end
 

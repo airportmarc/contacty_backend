@@ -22,6 +22,7 @@ class UsersController < ApplicationController
   end
 
   def create
+    puts params
     @users = User.create!(user_params)
     @contact = Contact.create({user: @users})
     if params['user']['phone'].length > 0

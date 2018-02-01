@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 
   def create
     @users = User.create!(user_params)
-    @contact = Contact.create({user: @users, address: params['user']['address']})
+    @contact = Contact.create({user: @users})
     if params['user']['phone'].length > 0
       @contact.phones.create(number:params['user']['phone'])
     end
@@ -38,7 +38,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params['user'].permit(:first_name, :last_name, :email)
+    params['user'].permit(:first_name, :last_name, :email, :bio, :organization)
   end
 
   def other_params
